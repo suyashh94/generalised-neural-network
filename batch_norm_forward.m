@@ -1,0 +1,10 @@
+function [Z_bn,Z_hat,gamma, Z_mu, ivar, var_sqrt, var, eps] = batch_norm_forward(Z,gamma,beta)
+eps = 10^-5;
+mu = mean(Z,2);
+Z_mu = Z - mu;
+var = std(Z,[],2).^2;
+var_sqrt = (sqrt(var + eps));
+ivar = 1./var_sqrt;
+Z_hat = Z_mu .* ivar;
+Z_gamma = gamma .* Z_hat;
+Z_bn = Z_gamma + beta;
